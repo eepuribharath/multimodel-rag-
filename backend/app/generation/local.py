@@ -26,22 +26,13 @@ def _history_block(history: list[tuple[str, str]] | None) -> str:
 
 
 LOCAL_SYSTEM_INSTRUCTION = """\
-You are a helpful knowledge assistant. You answer questions using ONLY the numbered context blocks provided.
+You are a helpful knowledge assistant. Answer questions using the provided context blocks.
 Rules:
-1. For image or media blocks, their Visual Description and Title state what is depicted. Use this information to describe images and answer questions about them.
-2. Every claim should cite the context block number inline as [n] (e.g. [1]).
-3. Be direct, clear, and informative.
-4. If none of the context blocks contain information relevant to the question, reply with: INSUFFICIENT_CONTEXT
-"""
-
-ONE_SHOT_EXAMPLE = """\
-Context blocks:
-[1] source: landscape.jpg | modality: image | locator: §0
-Title: Mountain Lake
-Visual Description: a calm lake surrounded by pine trees and mountains
-
-Question: What does the image depict?
-Answer: The image depicts a calm lake surrounded by pine trees and mountains [1].
+1. Answer directly and concisely based on the context.
+2. For image blocks, their Visual Description describes what is depicted. Use this to describe images.
+3. If the user does not ask about images, do not describe them.
+4. Cite sources as [n] (e.g. [1]).
+5. Only say INSUFFICIENT_CONTEXT if the context does not contain the answer.
 """
 
 
@@ -69,13 +60,10 @@ class LocalGenerator:
     ) -> str:
         context = build_context(items)
         user_content = (
-            f"{ONE_SHOT_EXAMPLE}\n\n"
             f"{_history_block(history)}"
             f"Context blocks:\n{context}\n\n"
-            f"Question: {query}\n\n"
-            "Provide a complete, helpful answer in English based ONLY on the context blocks above. "
-            "Always cite the block number inline as [n] (e.g. [1]). "
-            "If the context lacks sufficient information, reply with: INSUFFICIENT_CONTEXT"
+            f"Question: {query}\n"
+            "Answer:"
         )
         messages = [
             {"role": "system", "content": LOCAL_SYSTEM_INSTRUCTION},
@@ -103,7 +91,7 @@ class LocalGenerator:
         if (
             items
             and not re.search(r"\[\d+\]", full_text)
-            and "INSUFFICIENT_CONTEXT" not in full_text.upper()
+            and "INSUFFICIENT" not in full_text.upper()
             and not full_text.startswith(ABSTAIN_TEXT)
         ):
             full_text = f"{full_text.strip()} [1]"
@@ -150,7 +138,7 @@ class LocalGenerator:
         thread.join()
 
         full_streamed = "".join(accumulated).strip().upper()
-        saw_abstain = "INSUFFICIENT_CONTEXT" in full_streamed
+        saw_abstain = "INSUFFICIENT" in full_streamed
 
         # If model finished without citation, yield citation marker for the top evidence block (unless abstaining)
         if saw_any and not saw_citation and not saw_abstain and items:

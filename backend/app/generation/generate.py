@@ -81,12 +81,12 @@ def build_context(items: list[RetrievedItem]) -> str:
 
 
 CHITCHAT_INSTRUCTION = """\
-You are the friendly voice of a personal document-search assistant. The user
-sent a social message (greeting, thanks, small talk, or a question about you).
-Reply warmly in one to three short sentences. You may explain that you answer
-questions from the user's own library of documents, images, and audio, always
-with citations. Do not answer factual questions from general knowledge —
-invite the user to ask about their library instead. No markdown headers.
+You are the friendly, helpful assistant for a personal multimodal document-search system.
+The user sent a greeting, small talk, or an inquiry about your capabilities (e.g., asking if they can attach or upload a PDF, document, or image).
+Reply warmly, concisely, and directly:
+- If the user asks about attaching, uploading, or analyzing a PDF, document, or image, warmly confirm that you can: tell them to click the attachment (paperclip) icon or drag and drop their file to upload it, and you will be happy to explain, summarize, or answer questions about it.
+- If it is a greeting or casual question, greet them warmly and let them know you can answer questions about their uploaded documents, images, and audio.
+- Do not cite documents or make up facts. Keep your response friendly and under 3 sentences. No markdown headers.
 """
 
 
@@ -107,7 +107,15 @@ def chitchat_answer(text: str) -> Answer:
 def resolve_answer(raw_text: str, items: list[RetrievedItem]) -> Answer:
     """Hard citation-integrity gate between model output and the caller."""
     text = raw_text.strip()
-    if not text or text.upper().startswith(ABSTAIN_SENTINEL) or text.upper() == "INSUFFICIENT_CONTEXT":
+    upper = text.upper()
+    if (
+        not text
+        or upper.startswith(ABSTAIN_SENTINEL)
+        or upper.startswith("INSUFFICIENT CONTEXT")
+        or upper.startswith("INSUFFICIENT_CONTEXT")
+        or "INSUFFICIENT CONTEXT" in upper
+        or "INSUFFICIENT_CONTEXT" in upper
+    ):
         return Answer(
             text=ABSTAIN_TEXT, citations=[], used_chunk_ids=[],
             abstained=True, kind="abstained",
@@ -127,7 +135,11 @@ def resolve_answer(raw_text: str, items: list[RetrievedItem]) -> Answer:
         text = text.replace(f"[{n}]", "")
 
     if not cited_ordinals:
-        if items and "INSUFFICIENT_CONTEXT" not in text.upper() and not text.startswith(ABSTAIN_TEXT):
+        if (
+            items
+            and "INSUFFICIENT" not in upper
+            and not text.startswith(ABSTAIN_TEXT)
+        ):
             # Model generated valid answer text but missed citation marker; cite top block
             cited_ordinals = [1]
             text = f"{text.strip()} [1]"

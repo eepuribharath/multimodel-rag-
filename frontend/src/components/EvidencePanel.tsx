@@ -61,7 +61,7 @@ export function EvidencePanel({ evidence, citedIds, activeMarker, onCardHover }:
       </div>
 
       {!collapsed && (
-        <ul className="mt-3 space-y-2">
+        <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {evidence.items.map((item, i) => {
             const n = i + 1;
             const isActive = activeMarker === n;
@@ -73,45 +73,55 @@ export function EvidencePanel({ evidence, citedIds, activeMarker, onCardHover }:
                 onMouseEnter={() => onCardHover(n)}
                 onMouseLeave={() => onCardHover(null)}
                 className={
-                  "rounded-xl border p-3 transition " +
+                  "rounded-xl border p-3.5 transition flex flex-col justify-between " +
                   (isActive
                     ? "border-indigo-400 bg-indigo-50/60 ring-2 ring-indigo-100"
                     : isCited
-                      ? "border-neutral-200 bg-white"
+                      ? "border-neutral-200 bg-white shadow-xs"
                       : "border-neutral-100 bg-neutral-50/60 opacity-80")
                 }
               >
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-indigo-600/90 text-[11px] font-bold text-white">
-                    {n}
-                  </span>
-                  <span className="truncate text-sm font-medium text-neutral-800">{item.source_id}</span>
-                  <span className="text-xs text-neutral-400">{item.locator}</span>
-                  <span className="ml-auto shrink-0"><ModalityBadge modality={item.modality} /></span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-indigo-600/90 text-[11px] font-bold text-white">
+                      {n}
+                    </span>
+                    <span className="truncate text-sm font-medium text-neutral-800">{item.source_id}</span>
+                    <span className="text-xs text-neutral-400">{item.locator}</span>
+                    <span className="ml-auto shrink-0"><ModalityBadge modality={item.modality} /></span>
+                  </div>
+                  {item.snippet && (
+                    <p className="mt-2 line-clamp-3 text-[13px] leading-5 text-neutral-600">{item.snippet}</p>
+                  )}
+                  {item.media_url && item.modality === "image" && (
+                    <a
+                      href={mediaUrl(item.media_url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2.5 block overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100"
+                      title="Click to view full image"
+                    >
+                      <img
+                        src={mediaUrl(item.media_url)}
+                        alt={item.snippet || `figure from ${item.source_id}`}
+                        className="max-h-48 w-full object-cover transition duration-150 hover:scale-[1.02]"
+                      />
+                    </a>
+                  )}
+                  {item.media_url && item.modality === "audio" && (
+                    <audio
+                      controls
+                      preload="metadata"
+                      className="mt-2.5 w-full"
+                      src={mediaUrl(item.media_url)}
+                      onLoadedMetadata={(e) => {
+                        if (item.start_ms) e.currentTarget.currentTime = 0; // slices start at the cited timestamp already
+                      }}
+                    />
+                  )}
                 </div>
-                {item.snippet && (
-                  <p className="mt-2 line-clamp-3 text-[13px] leading-5 text-neutral-500">{item.snippet}</p>
-                )}
-                {item.media_url && item.modality === "image" && (
-                  <img
-                    src={mediaUrl(item.media_url)}
-                    alt={item.snippet || `figure from ${item.source_id}`}
-                    className="mt-2 max-h-36 rounded-lg border border-neutral-200 object-contain"
-                  />
-                )}
-                {item.media_url && item.modality === "audio" && (
-                  <audio
-                    controls
-                    preload="metadata"
-                    className="mt-2 w-full"
-                    src={mediaUrl(item.media_url)}
-                    onLoadedMetadata={(e) => {
-                      if (item.start_ms) e.currentTarget.currentTime = 0; // slices start at the cited timestamp already
-                    }}
-                  />
-                )}
                 {isCited && (
-                  <p className="mt-2 text-[11px] font-medium text-indigo-600">cited in answer</p>
+                  <p className="mt-3 text-[11px] font-semibold text-indigo-600">✓ cited in answer</p>
                 )}
               </li>
             );

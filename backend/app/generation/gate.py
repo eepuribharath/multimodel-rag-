@@ -28,6 +28,22 @@ _SOCIAL_RE = re.compile(
     re.IGNORECASE,
 )
 
+_FUTURE_UPLOAD_RE = re.compile(
+    r"\b(i\s+will|i'll|i\s+want\s+to|i'd\s+like\s+to|i\s+am\s+going\s+to|i\s+plan\s+to)\s+.*\b(attach|upload|send|provide|give)\b",
+    re.IGNORECASE,
+)
+_HOWTO_UPLOAD_RE = re.compile(
+    r"^(how\s+do\s+i|how\s+can\s+i)\s+.*\b(attach|upload|send|import)\b",
+    re.IGNORECASE,
+)
+_GENERAL_CAPABILITY_RE = re.compile(
+    r"^(can\s+you|could\s+you|will\s+you|are\s+you\s+able\s+to)\s+"
+    r"(help(\s+me)?|explain(\s+to\s+me)?|read|analyze|summarize|assist)"
+    r"(\s+(a|an|the|my)?\s*(pdf|file|document|doc|image|audio|video)s?(\s+files?)?)?"
+    r"[\s!?.,:;)…]*$",
+    re.IGNORECASE,
+)
+
 REWRITE_INSTRUCTION = f"""\
 You prepare a user's chat message for document search. Given the previous
 conversation and the new message, reply with ONLY one of:
@@ -47,7 +63,18 @@ class GatePlan:
 
 
 def looks_social(message: str) -> bool:
-    return len(message) <= 80 and _SOCIAL_RE.match(message.strip()) is not None
+    clean = message.strip()
+    if len(clean) > 120:
+        return False
+    if _SOCIAL_RE.match(clean):
+        return True
+    if _FUTURE_UPLOAD_RE.search(clean):
+        return True
+    if _HOWTO_UPLOAD_RE.search(clean):
+        return True
+    if _GENERAL_CAPABILITY_RE.search(clean):
+        return True
+    return False
 
 
 class QueryGate:

@@ -27,7 +27,7 @@ export function ChatTurnView({ turn, latest }: { turn: TurnData; latest: boolean
     <article className="border-b border-neutral-100 py-6 last:border-b-0">
       <h2 className="text-sm font-semibold text-neutral-900">{turn.question}</h2>
 
-      <div className={"mt-3 grid gap-6 " + (showEvidence ? "md:grid-cols-[minmax(0,1fr)_300px]" : "")}>
+      <div className="mt-3 flex flex-col gap-4">
         <section>
           {busy && (
             <div className="mb-3">
@@ -54,12 +54,14 @@ export function ChatTurnView({ turn, latest }: { turn: TurnData; latest: boolean
         </section>
 
         {showEvidence && (
-          <CollapsibleEvidence
-            turn={turn}
-            latest={latest}
-            activeMarker={activeMarker}
-            onCardHover={setActiveMarker}
-          />
+          <div className="mt-2 pt-3 border-t border-neutral-100">
+            <CollapsibleEvidence
+              turn={turn}
+              latest={latest}
+              activeMarker={activeMarker}
+              onCardHover={setActiveMarker}
+            />
+          </div>
         )}
       </div>
     </article>
