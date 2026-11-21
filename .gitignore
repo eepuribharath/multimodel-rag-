@@ -1,0 +1,75 @@
+# ==============================================================================
+# Git Ignore - Multimodal RAG
+# ==============================================================================
+
+# Environment files, credentials, secrets
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.cert
+secrets.json
+
+# Python Virtual Environments
+venv/
+venv*/
+.venv/
+env/
+.env/
+
+# Python bytecode and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Testing and Linters
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vector Database and Local History Store
+qdrant_data/
+history.db
+history.db*
+*.sqlite3
+*.db
+
+# User runtime uploads & derived media
+media_store/uploads/*
+!media_store/uploads/.gitkeep
+media_store/derived/*
+!media_store/derived/.gitkeep
+
+# System & OS artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Agent & IDE Configurations
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo

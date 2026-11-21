@@ -1,0 +1,137 @@
+{
+  "config": {
+    "embed_model": "gemini-embedding-2-preview",
+    "embed_dim": 3072,
+    "gen_model": "gemini-3.5-flash",
+    "reranker": "local",
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieve_top_k": 100,
+    "rerank_top_k": 6
+  },
+  "n_questions": 11,
+  "n_out_of_corpus": 3,
+  "recall_at_100": 1.0,
+  "ndcg_at_10_pre_rerank": 1.0,
+  "ndcg_at_6_pre_rerank": 1.0,
+  "ndcg_at_6_post_rerank": 1.0,
+  "reranker_lift": 0.0,
+  "citation_valid_rate": 1.0,
+  "abstention_rate": 1.0,
+  "ragas": null,
+  "per_question": [
+    {
+      "question": "What is the maximum torque for compressor XK-42817?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "How often does the XK-42817 need a full service?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "How much paid time off do staff members receive each year?",
+      "kind": "paraphrase",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "What is the procedure to safely restart router RTR-77?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "Which VLAN is used for guest wifi?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "What water temperature should I use when pulling a shot?",
+      "kind": "paraphrase",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "How thick is the frozen crust covering Europa's ocean?",
+      "kind": "paraphrase",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "How long is the warranty on the AURA-500?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "Where in the cell is most ATP generated?",
+      "kind": "paraphrase",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "What was the company's revenue in the third quarter?",
+      "kind": "paraphrase",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "Which laptop model do engineers get by default?",
+      "kind": "exact_identifier",
+      "recall@100": 1.0,
+      "ndcg@6_pre": 1.0,
+      "ndcg@6_post": 1.0,
+      "citation_valid": true,
+      "abstained": false
+    },
+    {
+      "question": "What is the boiling point of tungsten?",
+      "kind": "out_of_corpus",
+      "abstained": true
+    },
+    {
+      "question": "Who won the 1998 FIFA World Cup?",
+      "kind": "out_of_corpus",
+      "abstained": true
+    },
+    {
+      "question": "What is the airspeed of an unladen swallow?",
+      "kind": "out_of_corpus",
+      "abstained": true
+    }
+  ]
+}

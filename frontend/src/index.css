@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.stage-active {
+  animation: pulse-soft 1.2s ease-in-out infinite;
+}
+
+/* streaming caret */
+.caret p:last-child::after,
+.caret li:last-child::after,
+.caret > *:last-child:not(p):not(li):not(div)::after,
+.caret:not(:has(*))::after {
+  content: "▍";
+  margin-left: 2px;
+  animation: pulse-soft 0.9s ease-in-out infinite;
+  color: var(--color-indigo-500, #6366f1);
+  display: inline-block;
+  vertical-align: baseline;
+}

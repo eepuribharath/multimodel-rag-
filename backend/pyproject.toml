@@ -1,0 +1,41 @@
+[project]
+name = "multimodal-rag-backend"
+version = "0.1.0"
+description = "Multimodal RAG backend: ingestion, embedding, retrieval, rerank, generation"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "google-genai>=1.0",
+    "tenacity>=8.2",
+    "qdrant-client>=1.12",
+    "docling>=2.0",
+    "tiktoken>=0.7",
+    "pydub>=0.25",
+    "audioop-lts; python_version>='3.13'",
+    "sentence-transformers>=3.0",
+    "transformers>=4.40",
+    "torch>=2.2",
+    "rapidocr>=3.0",
+    "pillow>=10.0",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "reportlab>=4.0",  # generates PDF test fixtures
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: heavy tests (docling layout models); deselect with -m 'not slow'"]

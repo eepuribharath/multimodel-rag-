@@ -1,0 +1,18 @@
+{
+  "config": {
+    "embed_model": "gemini-embedding-2-preview",
+    "embed_dim": 3072,
+    "gen_model": "gemini-3.5-flash",
+    "reranker": "local",
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieve_top_k": 100,
+    "rerank_top_k": 6
+  },
+  "floors": {
+    "recall_at_100": 0.95,
+    "ndcg_at_10_pre_rerank": 0.95,
+    "ndcg_at_6_post_rerank": 0.95,
+    "citation_valid_rate": 0.95,
+    "abstention_rate": 0.95
+  }
+}

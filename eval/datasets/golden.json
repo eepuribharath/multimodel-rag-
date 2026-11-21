@@ -1,0 +1,75 @@
+{
+  "items": [
+    {
+      "question": "What is the maximum torque for compressor XK-42817?",
+      "ground_truth": "The maximum torque for compressor part XK-42817 is 5.5 Nm.",
+      "expected_source_ids": ["compressor-manual.md"],
+      "kind": "exact_identifier"
+    },
+    {
+      "question": "How often does the XK-42817 need a full service?",
+      "ground_truth": "The XK-42817 requires a full service every 400 operating hours.",
+      "expected_source_ids": ["compressor-manual.md"],
+      "kind": "exact_identifier"
+    },
+    {
+      "question": "How much paid time off do staff members receive each year?",
+      "ground_truth": "Full-time employees accrue 24 days of paid annual leave per calendar year.",
+      "expected_source_ids": ["hr-policy.md"],
+      "kind": "paraphrase"
+    },
+    {
+      "question": "What is the procedure to safely restart router RTR-77?",
+      "ground_truth": "Drain traffic by lowering BGP local-pref to 50, wait about 3 minutes for sessions to move, then power-cycle via the management card.",
+      "expected_source_ids": ["network-runbook.md"],
+      "kind": "exact_identifier"
+    },
+    {
+      "question": "Which VLAN is used for guest wifi?",
+      "ground_truth": "Guest wireless traffic is isolated on VLAN 210.",
+      "expected_source_ids": ["network-runbook.md"],
+      "kind": "exact_identifier"
+    },
+    {
+      "question": "What water temperature should I use when pulling a shot?",
+      "ground_truth": "Brew espresso with water at 93°C.",
+      "expected_source_ids": ["coffee-guide.md"],
+      "kind": "paraphrase"
+    },
+    {
+      "question": "How thick is the frozen crust covering Europa's ocean?",
+      "ground_truth": "Europa's outer ice shell is estimated to be 15 to 25 km thick.",
+      "expected_source_ids": ["astronomy-notes.md"],
+      "kind": "paraphrase"
+    },
+    {
+      "question": "How long is the warranty on the AURA-500?",
+      "ground_truth": "The AURA-500 carries an 18-month limited warranty.",
+      "expected_source_ids": ["product-faq.md"],
+      "kind": "exact_identifier"
+    },
+    {
+      "question": "Where in the cell is most ATP generated?",
+      "ground_truth": "Most ATP is produced in the mitochondria, across the inner mitochondrial membrane by ATP synthase during oxidative phosphorylation.",
+      "expected_source_ids": ["biology-notes.md"],
+      "kind": "paraphrase"
+    },
+    {
+      "question": "What was the company's revenue in the third quarter?",
+      "ground_truth": "Q3 revenue came in at $4.2M, up 22% year over year.",
+      "expected_source_ids": ["finance-memo.md"],
+      "kind": "paraphrase"
+    },
+    {
+      "question": "Which laptop model do engineers get by default?",
+      "ground_truth": "Standard issue is the 14-inch LPT-M4-14; engineers may request the 16-inch LPT-M4-16 with manager approval.",
+      "expected_source_ids": ["onboarding-it.md"],
+      "kind": "exact_identifier"
+    }
+  ],
+  "out_of_corpus": [
+    { "question": "What is the boiling point of tungsten?" },
+    { "question": "Who won the 1998 FIFA World Cup?" },
+    { "question": "What is the airspeed of an unladen swallow?" }
+  ]
+}
