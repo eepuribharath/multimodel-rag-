@@ -19,7 +19,7 @@ from google.genai import types
 CHITCHAT_SENTINEL = "CHITCHAT"
 
 _SOCIAL_RE = re.compile(
-    r"^(hi|hiya|hello|hey+|yo|sup|howdy|good\s+(morning|afternoon|evening)|"
+    r"^(hi+|hiya|hello+|hey+|yo+|sup|howdy|good\s+(morning|afternoon|evening)|"
     r"thanks|thank\s+you|thx|ty|ok(ay)?|cool|nice|great|awesome|"
     r"bye|goodbye|see\s+ya|later|"
     r"how\s+are\s+you|how'?s\s+it\s+going|what'?s\s+up|"

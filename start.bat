@@ -15,10 +15,10 @@ if not exist "backend\run.bat" (
 )
 
 echo [1/3] Starting Backend in new window...
-start "Multimodal RAG - Backend" cmd /c "%~dp0backend\run.bat"
+start "Multimodal RAG - Backend" cmd /k "%~dp0backend\run.bat"
 
 echo [2/3] Starting Frontend in new window...
-start "Multimodal RAG - Frontend" cmd /c "%~dp0frontend\run.bat"
+start "Multimodal RAG - Frontend" cmd /k "%~dp0frontend\run.bat"
 
 echo [3/3] Waiting for servers to initialize...
 ping 127.0.0.1 -n 4 >nul
